@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--- Fonte: https://d3js.org/getting-started -->
+<div id="container"></div> <!-- Div que atua como o recipiente para o gráfico D3 -->
+
+<script type="module">
+
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"; // Importando a biblioteca D3.js
+
+// Declara as dimensões do gráfico e margens.
+const width = 640; // Largura do gráfico
+const height = 400; // Altura do gráfico
+const marginTop = 20; // Margem superior
+const marginRight = 20; // Margem direita
+const marginBottom = 30; // Margem inferior
+const marginLeft = 40; // Margem esquerda
+
+// Declara a escala x (posição horizontal).
+const x = d3.scaleUtc()
+    .domain([new Date("2023-01-01"), new Date("2024-01-01")]) // Intervalo de datas no eixo x
+    .range([marginLeft, width - marginRight]);
+
+// Declara a escala y (posição vertical).
+const y = d3.scaleLinear()
+    .domain([0, 100]) // Intervalo de valores no eixo y
+    .range([height - marginBottom, marginTop]);
+
+// Cria o container SVG.
+const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// Adiciona o eixo x.
+svg.append("g")
+    .attr("transform", `translate(0,${height - marginBottom})`)
+    .call(d3.axisBottom(x));
+
+// Adiciona o eixo y.
+svg.append("g")
+    .attr("transform", `translate(${marginLeft},0)`)
+    .call(d3.axisLeft(y));
+
+// Anexa o elemento SVG.
+container.append(svg.node());
+
+</script>
